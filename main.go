@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -93,7 +94,11 @@ func logoutHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Logged out successfully"})
 }
 
+func home(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "Welcome to the home page"})
+}
 func main() {
+	fmt.Println("Welcome to the home page")
 	// Create a new Gin router
 	r := gin.Default()
 
@@ -112,6 +117,7 @@ func main() {
 
 	// Login route
 	r.POST("/api/login", loginHandler)
+	r.POST("/", home)
 
 	// Protected route
 	r.GET("/api/protected", authenticateToken, protectedHandler)
